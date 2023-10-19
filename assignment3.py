@@ -31,7 +31,7 @@ class MemoryTestWindow:
         #bottom text
         toolbar = Frame(window)
         self.__startbutton = Button(toolbar, text = 'start', font = ("Arial bold", 20))
-        seld.__startbutton.pack(side = 'left')
+        self.__startbutton.pack(side = 'left')
         label1 = Label(toolbar, text = 'ms invisible:', font = ("Arial bold", 20))
         label1.pack(side = 'left')
         entry1 = Entry(toolbar, font = ('Arial bold', 20))
