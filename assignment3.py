@@ -1,22 +1,4 @@
-from tkinter import *
-from random import randint
-
-# solution version 1: without extensions
-
-def show_duo_names():
-    print()
-    print('┌─────────────────────┬───────────────────────┐')
-    print('│ 0HV120 assignment 3 │ Memory Test           │')
-    print('├─────────────────────┼───────────────────────┤')
-    print('│ duo partner 1       │ Ammy Prohkrathok      │')
-    print('├─────────────────────┼───────────────────────┤')
-    print('│ duo partner 2       │ Rosalie Bentvelsen    │')
-    print('└─────────────────────┴───────────────────────┘')
-
-#1 layout start screen
-class MemoryTestWindow:
-    def __init__(self, root):
-        window = root
+ window = root
         window.title('Memory Test')
         window.minsize(600, 400)
 
@@ -30,7 +12,7 @@ class MemoryTestWindow:
 
         #bottom text
         toolbar = Frame(window)
-        self.__startbutton = Button(toolbar, text = 'start', font = ("Arial bold", 20))
+        self.__startbutton = Button(toolbar, text = 'start', font = ("Arial bold", 20), command = self.count_down)
         self.__startbutton.pack(side = 'left')
         label1 = Label(toolbar, text = 'ms invisible:', font = ("Arial bold", 20))
         label1.pack(side = 'left')
@@ -57,14 +39,14 @@ class MemoryTestWindow:
             self.__start_label.pack()
 
             self.__canvas.delete('all')
-            self.__canvas.create_text(100, 100, text= count * '.', font=('Arial', 36))
+            self.__canvas.create_text(100, 100, text= count * '.', font=('Arial', 20))
             self.__canvas.after(1000, self.count_down, count-1)
 
     #3. start obervation phase
-        self.observation()
+        #self.observation()
 
-    def observation(self):
-        self.__canvas.create_rectangle(300, 300, 300, 300, fill = "red")
+    #def observation(self):
+        #self.__canvas.create_rectangle(300, 300, 300, 300, fill = "red")
 
         return  # replace with you code
 
