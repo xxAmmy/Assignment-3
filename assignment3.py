@@ -1,6 +1,24 @@
- window = root
+from tkinter import *
+from random import randint
+import time
+
+# solution version 1: without extensions
+
+def show_duo_names():
+    print()
+    print('┌─────────────────────┬───────────────────────┐')
+    print('│ 0HV120 assignment 3 │ Memory Test           │')
+    print('├─────────────────────┼───────────────────────┤')
+    print('│ duo partner 1       │ Ammy Prohkrathok      │')
+    print('├─────────────────────┼───────────────────────┤')
+    print('│ duo partner 2       │ Rosalie Bentvelsen    │')
+    print('└─────────────────────┴───────────────────────┘')
+
+
+class MemoryTestWindow:
+    def __init__(self, root):window = root
         window.title('Memory Test')
-        window.minsize(600, 400)
+        window.minsize(200, 200)
 
         #top label
         self.__start_label = Label(text = "click 'Start' to begin the memory test", font = ('Arial bold', 20))
@@ -45,8 +63,10 @@
     #3. start obervation phase
         #self.observation()
 
-    #def observation(self):
-        #self.__canvas.create_rectangle(300, 300, 300, 300, fill = "red")
+    def observation(self):
+        self.__start_label.config(text = "watch the sequence...", font = ('Arial bold', 20))
+        self.__start_label.pack()
+        self.__canvas.create_rectangle(300, 300, 300, 300, fill = "red")
 
         return  # replace with you code
 
