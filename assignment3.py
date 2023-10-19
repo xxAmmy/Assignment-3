@@ -61,12 +61,29 @@ class MemoryTestWindow:
             self.__canvas.after(1000, self.count_down, count-1)
 
     #3. start obervation phase
-        #self.observation()
+        else:
+            self.observation()
 
     def observation(self):
         self.__start_label.config(text = "watch the sequence...", font = ('Arial bold', 20))
         self.__start_label.pack()
-        self.__canvas.create_rectangle(300, 300, 300, 300, fill = "red")
+
+        squares = []
+        squares.append(self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green"))
+        squares.append(self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow"))
+        squares.append(self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red"))
+        squares.append(self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue"))
+
+        def click_square(event):
+            x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
+            y = self.__canvas.canvasy(event.y)
+
+            for item in squares:
+                if self.__canvas.coords(item)[0] < x < self.__canvas.coords(item)[2] and self.__canvas.coords(item)[1] < y < self.__canvas.coords(item)[3]:
+                    print(f"Vierkant {item} is geklikt.")
+
+        self.__canvas.bind("<Button-1>", click_square)
+
 
         return  # replace with you code
 
