@@ -25,16 +25,13 @@ class MemoryTestWindow:
         self.__start_label.pack()
 
         #make canvas
-        self.__canvas = Canvas(root)
-        self.__canvas.config(width = 1200)
-        self.__canvas.config(height = 700)
-        self.__canvas.config(background = "white")
+        self.__canvas = Canvas(root, width = 1200, height = 700, bg = 'white')
         self.__canvas.pack()
 
         #bottom text
         toolbar = Frame(window)
-        startbutton = Button(toolbar, text = 'start', font = ("Arial bold", 20))
-        startbutton.pack(side = 'left')
+        self.__startbutton = Button(toolbar, text = 'start', font = ("Arial bold", 20))
+        seld.__startbutton.pack(side = 'left')
         label1 = Label(toolbar, text = 'ms invisible:', font = ("Arial bold", 20))
         label1.pack(side = 'left')
         entry1 = Entry(toolbar, font = ('Arial bold', 20))
@@ -60,9 +57,7 @@ class MemoryTestWindow:
             self.__start_label.pack()
 
             self.__canvas.delete('all')
-            self.__canvas.create_oval(100, 300, 100, 300, outline = 'black', fill ='black')
-            self.__canvas.create_text(100, 100, text=str(count), font=('Arial', 36))
-
+            self.__canvas.create_text(100, 100, text= count * '.', font=('Arial', 36))
             self.__canvas.after(1000, self.count_down, count-1)
 
     #3. start obervation phase
