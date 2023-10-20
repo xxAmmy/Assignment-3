@@ -16,7 +16,8 @@ def show_duo_names():
 
 
 class MemoryTestWindow:
-    def __init__(self, root):window = root
+    def __init__(self, root):
+        window = root
         window.title('Memory Test')
         window.minsize(200, 200)
 
@@ -34,19 +35,19 @@ class MemoryTestWindow:
         self.__startbutton.pack(side = 'left')
         label1 = Label(toolbar, text = 'ms invisible:', font = ("Arial bold", 20))
         label1.pack(side = 'left')
-        entry1 = Entry(toolbar, font = ('Arial bold', 20))
-        entry1.insert(0, "500")
-        entry1.pack(side = 'left')
+        self.__entry1 = Entry(toolbar, font = ('Arial bold', 20))
+        self.__entry1.insert(0, "500")
+        self.__entry1.pack(side = 'left')
         label2 = Label(toolbar, text = 'ms between:', font = ("Arial bold", 20))
         label2.pack(side = 'left')
-        entry2 = Entry(toolbar, font = ("Arial bold", 20))
-        entry2.pack(side = 'left')
-        entry2.insert(0, "500")
+        self.__entry2 = Entry(toolbar, font = ("Arial bold", 20))
+        self.__entry2.pack(side = 'left')
+        self.__entry2.insert(0, "500")
         label3 = Label(toolbar, text = 'sequence length:', font = ("Arial bold", 20))
         label3.pack(side = 'left')
-        entry3 = Entry(toolbar, font = ("Arial bold", 20))
-        entry3.insert(0, "3")
-        entry3.pack(side = 'left')
+        self.__entry3 = Entry(toolbar, font = ("Arial bold", 20))
+        self.__entry3.insert(0, "3")
+        self.__entry3.pack(side = 'left')
         toolbar.pack(side=BOTTOM)
 
     #count down
@@ -57,23 +58,38 @@ class MemoryTestWindow:
             self.__start_label.pack()
 
             self.__canvas.delete('all')
-            self.__canvas.create_text(100, 100, text= count * '.', font=('Arial', 20))
+            self.__canvas.create_text(600, 350, text= count * '.', font=('Arial', 80))
             self.__canvas.after(1000, self.count_down, count-1)
-
-    #3. start obervation phase
-        else:
+        else: #3. start obervation phase
             self.observation()
 
-    def observation(self):
+    def observation(self): #hier zou je root bij moeten zetten voor de code hieronder maar dan werkt het niet meer
         self.__start_label.config(text = "watch the sequence...", font = ('Arial bold', 20))
         self.__start_label.pack()
 
-        self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue", tags = "blue")
-        self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red", tags = "red")
-        self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
-        self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
-
-        self.__canvas.delete('blue')
+        blue_square = self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue", tags = "blue")
+        red_square = self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red", tags = "red")
+        green_square = self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
+        yellow_square = self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
+        
+        for _ in range(self.__entry3):
+            random_color = randint(1,4)
+            if random_color == 1:
+                def hide_blue(root, blue_square):
+                    self.__canvas.delete(blue_square)
+                root.after(2000, hide_blue) #ipv 2000 dan de self.__entry1
+            if random_color == 2:
+                def hide_red(root, red_square):
+                    self.__canvas.delete(red_square)
+                root.after(2000, hide_red)
+            if random_color == 3:
+                def hide_green(root, green_square):
+                    self.__canvas.delete(green_square)
+                root.after(2000, hide_green)
+            if random_color == 4:
+                def hide_yellow(root, yellow_square):
+                    self.__canvas.delete(yellow_square)
+                root.after(2000, hide_yellow)
 
 
     def sequence(self):
