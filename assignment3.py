@@ -68,11 +68,20 @@ class MemoryTestWindow:
         self.__start_label.config(text = "watch the sequence...", font = ('Arial bold', 20))
         self.__start_label.pack()
 
+        self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue", tags = "blue")
+        self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red", tags = "red")
+        self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
+        self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
+
+        self.__canvas.delete('blue')
+
+
+    def sequence(self):
         squares = []
-        squares.append(self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green"))
-        squares.append(self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow"))
-        squares.append(self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red"))
         squares.append(self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue"))
+        squares.append(self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red"))
+        squares.append(self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green"))
+        squares.append(self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow"))        
 
         def click_square(event):
             x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
