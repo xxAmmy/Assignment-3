@@ -97,7 +97,7 @@ class MemoryTestWindow:
     #je hebt nu voor elke sqaure een aparte functie gemaakt voor verdwijnen maar je kon ook een fucntie met --> def hide_square(self, sqaure), maken ik heb dat gedaan en toen kon hij de after functie niet
     #toepassen omdat je de after functie alleen kan gebruiken voor een root en niet een self (idk wat dat betekent maar die error kreeg ik)
 
-    for _ in range(3):
+        for _ in range(3):
             random_color = randint(1, 4)
             if random_color == 1:
                 self.__canvas.after(2000, lambda: self.__canvas.delete(blue_square))
