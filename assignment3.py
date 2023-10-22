@@ -108,7 +108,35 @@ class MemoryTestWindow:
             elif random_color == 4:
                 self.__canvas.after(2000, lambda: self.__canvas.delete(yellow_square))
 
+    #hij doet het nu alleen nog maar 1 keer, maar wel maar 1 vierkantje tegelijk die verdwijnt en dan terugkomt
+    #kijk eens naar 8.6 daar is een beetje hetzelfde proces en daarom was ik een beetje aan begonnen
 
+        sequence_length = int(self.__entry3.get())
+        ms_between = int(self.__entry2.get())
+        ms_invisible = int(self.__entry1.get())
+        nr_dissapear = 0
+
+        #for _ in range(sequence_length):
+        if nr_dissapear < sequence_length:
+            random_color = randint(1, 4)
+            if random_color == 1:
+                self.__canvas.after(ms_between, lambda: self.__canvas.delete(blue_square))
+                self.__canvas.after(2000, lambda: self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue", tags = "blue"))
+                nr_dissapear = nr_dissapear +1
+            elif random_color == 2:
+                self.__canvas.after(ms_between, lambda: self.__canvas.delete(red_square))
+                self.__canvas.after(2000, lambda: self.__canvas.create_rectangle(620, 30, 920, 330, fill  = "red", tags = "red"))
+                nr_dissapear = nr_dissapear +1
+            elif random_color == 3:
+                self.__canvas.after(ms_between, lambda: self.__canvas.delete(green_square))
+                self.__canvas.after(2000, lambda: self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green"))
+                nr_dissapear = nr_dissapear +1
+            elif random_color == 4:
+                self.__canvas.after(ms_between, lambda: self.__canvas.delete(yellow_square))
+                self.__canvas.after(2000, lambda: self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow"))
+                nr_dissapear = nr_dissapear +1
+    
+    
     def sequence(self):
         squares = []
         squares.append(self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue"))
