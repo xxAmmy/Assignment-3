@@ -79,50 +79,46 @@ class MemoryTestWindow:
         self.__canvas.itemconfigure(square, state="hidden")
 
     def observation(self):
-        k = True
-        while k == True:
-            self.__start_label.config(text = "watch the sequence...", font = self.font)
-            self.__start_label.pack()
+        self.__start_label.config(text = "watch the sequence...", font = self.font)
+        self.__start_label.pack()
 
-            blue_square = self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue", tags = "blue")
-            red_square = self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red", tags = "red")
-            green_square = self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
-            yellow_square = self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
+        blue_square = self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue", tags = "blue")
+        red_square = self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red", tags = "red")
+        green_square = self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
+        yellow_square = self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
+        
+        sequence_length = int(self.__entry3.get())
+        ms_between = int(self.__entry2.get())
+        ms_invisible = int(self.__entry1.get())
+        loop_time = ms_between + ms_invisible
+        sequence = []
+
+        for i in range(sequence_length):
+            random_color = randint(1, 4)
+            t = ms_between
+            back = t + i*loop_time + ms_invisible
             
-            sequence_length = int(self.__entry3.get())
-            ms_between = int(self.__entry2.get())
-            ms_invisible = int(self.__entry1.get())
-            loop_time = ms_between + ms_invisible
-            sequence = []
 
-            for i in range(sequence_length):
-                random_color = randint(1, 4)
-                t = ms_between
-                back = t + i*loop_time + ms_invisible
-                
-
-                if random_color == 1:
-                    self.__canvas.after(t + i*loop_time, lambda: self.hide(blue_square))
-                    self.__canvas.after(back, lambda: self.show(blue_square))
-                    sequence.append('1')
-                elif random_color == 2:
-                    self.__canvas.after(t + i*loop_time, lambda: self.hide(red_square))
-                    self.__canvas.after(back, lambda: self.show(red_square))
-                    sequence.append('2')
-                elif random_color == 3:
-                    self.__canvas.after(t + i*loop_time, lambda: self.hide(green_square))
-                    self.__canvas.after(back, lambda: self.show(green_square))
-                    sequence.append('3')
-                elif random_color == 4:
-                    self.__canvas.after(t + i*loop_time, lambda: self.hide(yellow_square))
-                    self.__canvas.after(back, lambda: self.show(yellow_square))
-                    sequence.append('4')
-            k= FALSE
-
-        else:
-            self.sequence()
+            if random_color == 1:
+                self.__canvas.after(t + i*loop_time, lambda: self.hide(blue_square))
+                self.__canvas.after(back, lambda: self.show(blue_square))
+                sequence.append('1')
+            elif random_color == 2:
+                self.__canvas.after(t + i*loop_time, lambda: self.hide(red_square))
+                self.__canvas.after(back, lambda: self.show(red_square))
+                sequence.append('2')
+            elif random_color == 3:
+                self.__canvas.after(t + i*loop_time, lambda: self.hide(green_square))
+                self.__canvas.after(back, lambda: self.show(green_square))
+                sequence.append('3')
+            elif random_color == 4:
+                self.__canvas.after(t + i*loop_time, lambda: self.hide(yellow_square))
+                self.__canvas.after(back, lambda: self.show(yellow_square))
+                sequence.append('4')
+    
             
         #sequence list is heel waarschijnlijk nodig voor opdracht 6 vandaar dat ik hem heb laten staan want ik had m ook gebruikt om de code te testen en bekijken
+        # hij doet het wel maar ik weet niet hoe ik hem over moet laten gaan naar def sequence()
     
     def sequence(self): #opdracht 5
         squares = []
