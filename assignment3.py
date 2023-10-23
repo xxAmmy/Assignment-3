@@ -120,34 +120,33 @@ class MemoryTestWindow:
         #sequence list is heel waarschijnlijk nodig voor opdracht 6 vandaar dat ik hem heb laten staan want ik had m ook gebruikt om de code te testen en bekijken
         # hij doet het wel maar ik weet niet hoe ik hem over moet laten gaan naar def sequence()
     
-    def sequence(self): #opdracht 5
+   def sequence(self): #opdracht 5
         self.__start_label.config(text = "repeat the sequence...", font = self.font)
         self.__start_label.pack()
+
+        self.__blue_square = self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue", tags = "blue")
+        self.__red_square = self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red", tags = "red")
+        self.__green_square = self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
+        self.__yellow_square = self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
         
-        squares = []
-        squares.append(self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue"))
-        squares.append(self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red"))
-        squares.append(self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green"))
-        squares.append(self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow"))        
+        self.__squares = []
+        self.__squares.append(self.__blue_square)
+        self.__squares.append(self.__red_square)
+        self.__squares.append(self.__green_square)
+        self.__squares.append(self.__yellow_square) 
 
-        def click_square(event):
-            x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
-            y = self.__canvas.canvasy(event.y)
+        self.__canvas.bind("<Button-1>", self.click_square)       
 
-            self.__blue_square = self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue", tags = "blue")
-            self.__red_square = self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red", tags = "red")
-            self.__green_square = self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
-            self.__yellow_square = self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
-            
-            for item in squares:
-                if self.__canvas.coords(item)[0] < x < self.__canvas.coords(item)[2] and self.__canvas.coords(item)[1] < y < self.__canvas.coords(item)[3]:
-                    print(f"Vierkant {item} is geklikt.")
-                    if item == 5:
-                        self.__canvas.after(0, lambda: self.hide(self.__blue_square))
-                        self.__canvas.after(self.__ms_invisible, lambda: self.show(self.__blue_square))
+    def click_square(self, event):
+        x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
+        y = self.__canvas.canvasy(event.y)
 
-        self.__canvas.bind("<Button-1>", click_square)
-
+        
+        for item in self.__squares:
+            if self.__canvas.coords(item)[0] < x < self.__canvas.coords(item)[2] and self.__canvas.coords(item)[1] < y < self.__canvas.coords(item)[3]:
+                print(f"Vierkant {item} is geklikt.")
+                self.__canvas.after(0, lambda: self.hide(item))
+                self.__canvas.after(self.__ms_invisible, lambda: self.show(item))
 
         return  # replace with you code
 
