@@ -71,12 +71,39 @@ class MemoryTestWindow:
             self.__canvas.after(1000, self.count_down, count-1)
         else: #3. start obervation phase
             self.observation()
+#vanaf hier werkt observation wel
+# ik gok dat def observation geen toegang meer had tot de hide en show functie wanneer je er een vierkant in plaats
+#blijkbaar doet hij t wel als je er overal een aparte functie van maakt
+    def hide(self, square):
+        self.__canvas.itemconfigure(square, state="hidden")
 
     def show(self, square):
         self.__canvas.itemconfigure(square, state="normal")
 
-    def hide(self, square):
-        self.__canvas.itemconfigure(square, state="hidden")
+    def hide_blue(self):
+        self.hide(self.__blue_square)
+
+    def show_blue(self):
+        self.show(self.__blue_square)
+
+    def hide_red(self):
+        self.hide(self.__red_square)
+
+    def show_red(self):
+        self.show(self.__red_square)
+
+    def hide_green(self):
+        self.hide(self.__green_square)
+
+    def show_green(self):
+        self.show(self.__green_square)
+
+    def hide_yellow(self):
+        self.hide(self.__yellow_square)
+
+    def show_yellow(self):
+        self.show(self.__yellow_square)
+
 
     def observation(self):
         self.__start_label.config(text = "watch the sequence...", font = self.font)
@@ -88,32 +115,33 @@ class MemoryTestWindow:
         self.__yellow_square = self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
         
         sequence_length = int(self.__entry3.get())
-        self.__ms_between = int(self.__entry2.get())
-        self.__ms_invisible = int(self.__entry1.get())
-        self.__loop_time = self.__ms_between + self.__ms_invisible
+        ms_between = int(self.__entry2.get())
+        ms_invisible = int(self.__entry1.get())
+        loop_time = ms_between + ms_invisible
         sequence = []
+        
 
         for i in range(sequence_length):
             random_color = randint(1, 4)
-            self.__t = self.__ms_between
-            self.__back = self.__t + i*self.__loop_time + self.__ms_invisible
-            
+            t = ms_between
+            back = t + i * loop_time + ms_invisible
+            print(f"t: {t}, i: {i}, loop_time: {loop_time}")
 
             if random_color == 1:
-                self.__canvas.after(self.__t + i*self.__loop_time, lambda: self.hide(self.__blue_square))
-                self.__canvas.after(self.__back, lambda: self.show(self.__blue_square))
+                self.__canvas.after(t + i * loop_time, self.hide_blue)
+                self.__canvas.after(back, self.show_blue)
                 sequence.append('1')
             elif random_color == 2:
-                self.__canvas.after(self.__t + i*self.__loop_time, lambda: self.hide(self.__red_square))
-                self.__canvas.after(self.__back, lambda: self.show(self.__red_square))
+                self.__canvas.after(t + i * loop_time, self.hide_red)
+                self.__canvas.after(back, self.show_red)
                 sequence.append('2')
             elif random_color == 3:
-                self.__canvas.after(self.__t + i*self.__loop_time, lambda: self.hide(self.__green_square))
-                self.__canvas.after(self.__back, lambda: self.show(self.__green_square))
+                self.__canvas.after(t + i * loop_time, self.hide_green)
+                self.__canvas.after(back, self.show_green)
                 sequence.append('3')
             elif random_color == 4:
-                self.__canvas.after(self.__t + i*self.__loop_time, lambda: self.hide(self.__yellow_square))
-                self.__canvas.after(self.__back, lambda: self.show(self.__yellow_square))
+                self.__canvas.after(t + i * loop_time, self.hide_yellow)
+                self.__canvas.after(back, self.show_yellow)
                 sequence.append('4')
        
         
