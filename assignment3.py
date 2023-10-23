@@ -104,7 +104,7 @@ class MemoryTestWindow:
                 self.__canvas.after(self.__back, lambda: self.show(self.__blue_square))
                 sequence.append('1')
             elif random_color == 2:
-                self.__canvas.after(self.__t + i*self.__loop_time, lambda: self.hides(self.__red_square))
+                self.__canvas.after(self.__t + i*self.__loop_time, lambda: self.hide(self.__red_square))
                 self.__canvas.after(self.__back, lambda: self.show(self.__red_square))
                 sequence.append('2')
             elif random_color == 3:
