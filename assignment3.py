@@ -114,18 +114,18 @@ class MemoryTestWindow:
         self.__green_square = self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
         self.__yellow_square = self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
         
-        sequence_length = int(self.__entry3.get())
-        ms_between = int(self.__entry2.get())
-        ms_invisible = int(self.__entry1.get())
-        loop_time = ms_between + ms_invisible
+        self.__sequence_length = int(self.__entry3.get())
+        self.__ms_between = int(self.__entry2.get())
+        self.__ms_invisible = int(self.__entry1.get())
+        loop_time = self.__ms_between + self.__ms_invisible
         sequence = []
         
 
-        for i in range(sequence_length):
+        for i in range(self.__sequence_length):
             random_color = randint(1, 4)
-            t = ms_between
-            back = t + i * loop_time + ms_invisible
-            print(f"t: {t}, i: {i}, loop_time: {loop_time}")
+            t = self.__ms_between
+            back = t + i * loop_time + self.__ms_invisible
+            #print(f"t: {t}, i: {i}, loop_time: {loop_time}")
 
             if random_color == 1:
                 self.__canvas.after(t + i * loop_time, self.hide_blue)
@@ -143,8 +143,9 @@ class MemoryTestWindow:
                 self.__canvas.after(t + i * loop_time, self.hide_yellow)
                 self.__canvas.after(back, self.show_yellow)
                 sequence.append('4')
-       
         
+
+        self.__canvas.after(self.__sequence_length*loop_time + self.__ms_between + self.__ms_invisible + 2000, self.sequence)
         #sequence list is heel waarschijnlijk nodig voor opdracht 6 vandaar dat ik hem heb laten staan want ik had m ook gebruikt om de code te testen en bekijken
         # hij doet het wel maar ik weet niet hoe ik hem over moet laten gaan naar def sequence()
     
