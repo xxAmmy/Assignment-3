@@ -166,16 +166,30 @@ class MemoryTestWindow:
 
         self.__canvas.bind("<Button-1>", self.click_square)       
 
-    def click_square(self, event):
-        x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
-        y = self.__canvas.canvasy(event.y)
-
-        
-        for item in self.__squares:
-            if self.__canvas.coords(item)[0] < x < self.__canvas.coords(item)[2] and self.__canvas.coords(item)[1] < y < self.__canvas.coords(item)[3]:
-                print(f"Vierkant {item} is geklikt.")
-                self.__canvas.after(0, lambda: self.hide(item))
-                self.__canvas.after(self.__ms_invisible, lambda: self.show(item))
+        def click_square(self, event):
+            x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
+            y = self.__canvas.canvasy(event.y)
+    
+            sequence_length = int(self.__entry3.get())
+            ms_between = int(self.__entry2.get())
+            ms_invisible = int(self.__entry1.get())
+            
+            
+            for item in self.__squares:
+                if self.__canvas.coords(item)[0] < x < self.__canvas.coords(item)[2] and self.__canvas.coords(item)[1] < y < self.__canvas.coords(item)[3]:
+                    print(f"Vierkant {item} is geklikt.")
+                    if item == 5:
+                        self.__canvas.after(0, self.hide_blue)
+                        self.__canvas.after(ms_invisible, self.show_blue)
+                    elif item == 6:
+                        self.__canvas.after(0, self.hide_red)
+                        self.__canvas.after(ms_invisible, self.show_red)
+                    elif item == 7:
+                        self.__canvas.after(0, self.hide_green)
+                        self.__canvas.after(ms_invisible, self.show_green)
+                    elif item == 8:
+                        self.__canvas.after(0, self.hide_yellow)
+                        self.__canvas.after(ms_invisible, self.show_yellow)
 
         return  # replace with you code
 
