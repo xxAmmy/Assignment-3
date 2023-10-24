@@ -114,49 +114,40 @@ class MemoryTestWindow:
         self.__green_square = self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
         self.__yellow_square = self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
         
-        self.__sequence_length = int(self.__entry3.get())
-        self.__ms_between = int(self.__entry2.get())
         self.__ms_invisible = int(self.__entry1.get())
+        self.__ms_between = int(self.__entry2.get())
+        self.__sequence_length = int(self.__entry3.get())
         loop_time = self.__ms_between + self.__ms_invisible
-        sequence = []
-        
+        self.__sequence = []
 
         for i in range(self.__sequence_length):
             random_color = randint(1, 4)
             t = self.__ms_between
             back = t + i * loop_time + self.__ms_invisible
-            #print(f"t: {t}, i: {i}, loop_time: {loop_time}")
+            print(f"t: {t}, i: {i}, loop_time: {loop_time}")
 
             if random_color == 1:
                 self.__canvas.after(t + i * loop_time, self.hide_blue)
                 self.__canvas.after(back, self.show_blue)
-                sequence.append('1')
+                self.__sequence.append('1')
             elif random_color == 2:
                 self.__canvas.after(t + i * loop_time, self.hide_red)
                 self.__canvas.after(back, self.show_red)
-                sequence.append('2')
+                self.__sequence.append('2')
             elif random_color == 3:
                 self.__canvas.after(t + i * loop_time, self.hide_green)
                 self.__canvas.after(back, self.show_green)
-                sequence.append('3')
+                self.__sequence.append('3')
             elif random_color == 4:
                 self.__canvas.after(t + i * loop_time, self.hide_yellow)
                 self.__canvas.after(back, self.show_yellow)
-                sequence.append('4')
-        
-
-        self.__canvas.after(self.__sequence_length*loop_time + self.__ms_between + self.__ms_invisible + 2000, self.sequence)
-        #sequence list is heel waarschijnlijk nodig voor opdracht 6 vandaar dat ik hem heb laten staan want ik had m ook gebruikt om de code te testen en bekijken
-        # hij doet het wel maar ik weet niet hoe ik hem over moet laten gaan naar def sequence()
-    
-   def sequence(self): #opdracht 5
+                self.__sequence.append('4')
+        print(self.__sequence)
+        self.__canvas.after(self.__sequence_length*loop_time + self.__ms_between + self.__ms_invisible, self.recall_1)
+            
+    def recall_1(self): #opdracht 5
         self.__start_label.config(text = "repeat the sequence...", font = self.font)
         self.__start_label.pack()
-
-        self.__blue_square = self.__canvas.create_rectangle(280, 30, 580, 330, fill = "blue", tags = "blue")
-        self.__red_square = self.__canvas.create_rectangle(620, 30, 920, 330, fill = "red", tags = "red")
-        self.__green_square = self.__canvas.create_rectangle(280, 370, 580, 670, fill = "green", tags = "green")
-        self.__yellow_square = self.__canvas.create_rectangle(620, 370, 920, 670, fill = "yellow", tags = "yellow")
         
         self.__squares = []
         self.__squares.append(self.__blue_square)
@@ -164,32 +155,34 @@ class MemoryTestWindow:
         self.__squares.append(self.__green_square)
         self.__squares.append(self.__yellow_square) 
 
-        self.__canvas.bind("<Button-1>", self.click_square)       
+        self.__canvas.bind("<Button-1>", self.click_square) 
 
-        def click_square(self, event):
-            x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
-            y = self.__canvas.canvasy(event.y)
-    
-            sequence_length = int(self.__entry3.get())
-            ms_between = int(self.__entry2.get())
-            ms_invisible = int(self.__entry1.get())
-            
-            
-            for item in self.__squares:
-                if self.__canvas.coords(item)[0] < x < self.__canvas.coords(item)[2] and self.__canvas.coords(item)[1] < y < self.__canvas.coords(item)[3]:
-                    print(f"Vierkant {item} is geklikt.")
-                    if item == 5:
-                        self.__canvas.after(0, self.hide_blue)
-                        self.__canvas.after(ms_invisible, self.show_blue)
-                    elif item == 6:
-                        self.__canvas.after(0, self.hide_red)
-                        self.__canvas.after(ms_invisible, self.show_red)
-                    elif item == 7:
-                        self.__canvas.after(0, self.hide_green)
-                        self.__canvas.after(ms_invisible, self.show_green)
-                    elif item == 8:
-                        self.__canvas.after(0, self.hide_yellow)
-                        self.__canvas.after(ms_invisible, self.show_yellow)
+    def click_square(self, event):
+        x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
+        y = self.__canvas.canvasy(event.y)
+
+        recall = []
+        
+        for item in self.__squares:
+            if self.__canvas.coords(item)[0] < x < self.__canvas.coords(item)[2] and self.__canvas.coords(item)[1] < y < self.__canvas.coords(item)[3]:
+                print(f"Vierkant {item} is geklikt.")
+                if item == 5:
+                    self.__canvas.after(0, self.hide_blue)
+                    self.__canvas.after(self.__ms_invisible, self.show_blue)
+                    recall.append('1')
+                elif item == 6:
+                    self.__canvas.after(0, self.hide_red)
+                    self.__canvas.after(self.__ms_invisible, self.show_red)
+                    recall.append('2')
+                elif item == 7:
+                    self.__canvas.after(0, self.hide_green)
+                    self.__canvas.after(self.__ms_invisible, self.show_green)
+                    recall.append('3')
+                elif item == 8:
+                    self.__canvas.after(0, self.hide_yellow)
+                    self.__canvas.after(self.__ms_invisible, self.show_yellow)
+                    recall.append('4')
+                print(recall)
 
         return  # replace with you code
 
