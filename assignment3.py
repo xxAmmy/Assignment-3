@@ -155,35 +155,33 @@ class MemoryTestWindow:
 
         self.__canvas.bind("<Button-1>", self.click_square) 
 
-    def click_square(self, event):
+   def click_square(self, event):
         x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
-        y = self.__canvas.canvasy(event.y)
-
-        for item in self.__squares:
-            overlapping_items = self.__canvas.find_overlapping(x, y, x, y)
-            if item in overlapping_items:
-                #print(f"Vierkant {item} is geklikt.")
-                if item == 5:
-                    self.__canvas.after(0, self.hide_blue)
-                    self.__canvas.after(self.__ms_invisible, self.show_blue)
-                    self.__recall.append('1')
-                elif item == 6:
-                    self.__canvas.after(0, self.hide_red)
-                    self.__canvas.after(self.__ms_invisible, self.show_red)
-                    self.__recall.append('2')
-                elif item == 7:
-                    self.__canvas.after(0, self.hide_green)
-                    self.__canvas.after(self.__ms_invisible, self.show_green)
-                    self.__recall.append('3')
-                elif item == 8:
-                    self.__canvas.after(0, self.hide_yellow)
-                    self.__canvas.after(self.__ms_invisible, self.show_yellow)
-                    self.__recall.append('4')
-                self.__click_counter += 1  
-                if self.__click_counter == self.__sequence_length: #when click counter == seq lenght, no more clicks allowed
-                    self.__canvas.unbind("<Button-1>")
-                    self.__canvas.after(self.__ms_invisible + 500, self.check_recall)
-
+        y = self.__canvas.canvasy(event.y) 
+        overlapping_items = self.__canvas.find_overlapping(x, y, x, y)
+        
+        if overlapping_items != (): #() betekent dat er geen vierkant is geklikt
+            if overlapping_items[0] == self.__squares[0]: 
+                self.__canvas.after(0, self.hide_blue)
+                self.__canvas.after(self.__ms_invisible, self.show_blue)
+                self.__recall.append('1')
+            elif overlapping_items[0] == self.__squares[1]:
+                self.__canvas.after(0, self.hide_red)
+                self.__canvas.after(self.__ms_invisible, self.show_red)
+                self.__recall.append('2')
+            elif overlapping_items[0] == self.__squares[2]:
+                self.__canvas.after(0, self.hide_green)
+                self.__canvas.after(self.__ms_invisible, self.show_green)
+                self.__recall.append('3')
+            elif overlapping_items[0] == self.__squares[3]:
+                self.__canvas.after(0, self.hide_yellow)
+                self.__canvas.after(self.__ms_invisible, self.show_yellow)
+                self.__recall.append('4')
+            self.__click_counter += 1  
+            if self.__click_counter == self.__sequence_length: #when click counter == seq length, no more clicks allowed
+                self.__canvas.unbind("<Button-1>")
+                self.__canvas.after(self.__ms_invisible + 500, self.check_recall)
+                
     def check_recall(self): # opdracht 6
         #print(self.__recall)
         #print(self.__sequence)
@@ -198,6 +196,9 @@ class MemoryTestWindow:
         else:
             self.__canvas.create_text(600, 350, text = 'the sequence was incorrect...', font = self.font)
             #print('the sequence was incorrect ...')
+                
+        self.__click_counter = 0 #restart variables for next round
+        self.__recall = []
         
         return  # replace with you code
 
