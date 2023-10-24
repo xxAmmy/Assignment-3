@@ -189,10 +189,14 @@ class MemoryTestWindow:
                     self.__canvas.unbind("<Button-1>")
                     self.check_recall()
 
-    def check_recall(self):
-        print(self.__recall)
-        print(self.__sequence)
+    def check_recall(self): # opdracht 6
+        self.__canvas.delete('all')
 
+        if self.__recall == self.__sequence:
+            self.__canvas.create_text(600, 350, text = 'the sequence was correct!', font = self.font)
+        else:
+            self.__canvas.create_text(600, 350, text = 'the sequence was correct!', font = self.font)
+            
         return  # replace with you code
 
 def main():
