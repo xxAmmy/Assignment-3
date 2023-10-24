@@ -79,31 +79,26 @@ class MemoryTestWindow:
 #blijkbaar doet hij t wel als je er overal een aparte functie van maakt
     def hide(self, square):
         self.__canvas.itemconfigure(square, state="hidden")
-
     def show(self, square):
         self.__canvas.itemconfigure(square, state="normal")
 
     def hide_blue(self):
         self.hide(self.__blue_square)
-
     def show_blue(self):
         self.show(self.__blue_square)
 
     def hide_red(self):
         self.hide(self.__red_square)
-
     def show_red(self):
         self.show(self.__red_square)
 
     def hide_green(self):
         self.hide(self.__green_square)
-
     def show_green(self):
         self.show(self.__green_square)
 
     def hide_yellow(self):
         self.hide(self.__yellow_square)
-
     def show_yellow(self):
         self.show(self.__yellow_square)
 
@@ -167,7 +162,7 @@ class MemoryTestWindow:
         for item in self.__squares:
             overlapping_items = self.__canvas.find_overlapping(x, y, x, y)
             if item in overlapping_items:
-                print(f"Vierkant {item} is geklikt.")
+                #print(f"Vierkant {item} is geklikt.")
                 if item == 5:
                     self.__canvas.after(0, self.hide_blue)
                     self.__canvas.after(self.__ms_invisible, self.show_blue)
@@ -196,10 +191,10 @@ class MemoryTestWindow:
 
         if self.__recall == self.__sequence:
             self.__canvas.create_text(600, 350, text = 'the sequence was correct!', font = self.font)
-            print('the sequence was correct!')
+            #print('the sequence was correct!')
         else:
             self.__canvas.create_text(600, 350, text = 'the sequence was incorrect...', font = self.font)
-            print('the sequence was incorrect ...')
+            #print('the sequence was incorrect ...')
             
         return  # replace with you code
 
