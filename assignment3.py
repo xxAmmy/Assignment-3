@@ -198,7 +198,7 @@ class MemoryTestWindow:
             self.__canvas.create_text(600, 350, text = 'the sequence was correct!', font = self.font)
             print('the sequence was correct!')
         else:
-            self.__canvas.create_text(600, 350, text = 'the sequence was correct!', font = self.font)
+            self.__canvas.create_text(600, 350, text = 'the sequence was incorrect...', font = self.font)
             print('the sequence was incorrect ...')
             
         return  # replace with you code
