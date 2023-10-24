@@ -155,7 +155,7 @@ class MemoryTestWindow:
 
         self.__canvas.bind("<Button-1>", self.click_square) 
 
-     def click_square(self, event):
+    def click_square(self, event):
         x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
         y = self.__canvas.canvasy(event.y)
 
@@ -182,12 +182,15 @@ class MemoryTestWindow:
                 self.__click_counter += 1  
                 if self.__click_counter == self.__sequence_length: #when click counter == seq lenght, no more clicks allowed
                     self.__canvas.unbind("<Button-1>")
-                    self.check_recall()
+                    self.__canvas.after(self.__ms_invisible + 500, self.check_recall)
 
     def check_recall(self): # opdracht 6
         #print(self.__recall)
         #print(self.__sequence)
+        self.__start_label.config(text = "", font = self.font)
+        self.__start_label.pack()
         self.__canvas.delete('all')
+        self.__startbutton.config(state="active")
 
         if self.__recall == self.__sequence:
             self.__canvas.create_text(600, 350, text = 'the sequence was correct!', font = self.font)
@@ -195,7 +198,7 @@ class MemoryTestWindow:
         else:
             self.__canvas.create_text(600, 350, text = 'the sequence was incorrect...', font = self.font)
             #print('the sequence was incorrect ...')
-            
+        
         return  # replace with you code
 
 def main():
