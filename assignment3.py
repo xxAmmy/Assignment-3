@@ -21,6 +21,9 @@ class MemoryTestWindow:
         window.title('Memory Test')
         window.minsize(200, 200)
 
+        self.__click_counter = 0 # these variables are for recall_1 and click_square
+        self.__recall = [] # ik zet ze hier omdat als ik ze in de functie zelf zet het hele tijd naar 0 wordt gereset
+
         self.font = ('sans 20 bold')
 
         #top label
@@ -160,8 +163,6 @@ class MemoryTestWindow:
     def click_square(self, event):
         x = self.__canvas.canvasx(event.x) #coordinaat van muisklik omzetten naar canvas coordinaat
         y = self.__canvas.canvasy(event.y)
-
-        recall = []
         
         for item in self.__squares:
             if self.__canvas.coords(item)[0] < x < self.__canvas.coords(item)[2] and self.__canvas.coords(item)[1] < y < self.__canvas.coords(item)[3]:
@@ -169,20 +170,28 @@ class MemoryTestWindow:
                 if item == 5:
                     self.__canvas.after(0, self.hide_blue)
                     self.__canvas.after(self.__ms_invisible, self.show_blue)
-                    recall.append('1')
+                    self.__recall.append('1')
                 elif item == 6:
                     self.__canvas.after(0, self.hide_red)
                     self.__canvas.after(self.__ms_invisible, self.show_red)
-                    recall.append('2')
+                    self.__recall.append('2')
                 elif item == 7:
                     self.__canvas.after(0, self.hide_green)
                     self.__canvas.after(self.__ms_invisible, self.show_green)
-                    recall.append('3')
+                    self.__recall.append('3')
                 elif item == 8:
                     self.__canvas.after(0, self.hide_yellow)
                     self.__canvas.after(self.__ms_invisible, self.show_yellow)
-                    recall.append('4')
-                print(recall)
+                    self.__recall.append('4')
+                self.__click_counter += 1  
+                
+                if self.__click_counter == self.__sequence_length: #when click counter == seq lenght, no more clicks allowed
+                    self.__canvas.unbind("<Button-1>")
+                    self.check_recall()
+
+    def check_recall(self):
+        print(self.__recall)
+        print(self.__sequence)
 
         return  # replace with you code
 
